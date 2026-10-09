@@ -30,7 +30,7 @@ y se añade con un `<script>` en `www/index.html`. Recibe `util` con: `lienzo()`
 | 1 | Respirar (suspiro cíclico, coherente, caja, 4-7-8) | Respiración | ✅ |
 | 2 | Burbujas infinitas | Táctil / descarga | ✅ |
 | 3 | Luz líquida (estelas + notas pentatónicas) | Visual / sonoro | ✅ |
-| 4 | Jardín zen: rastrillar arena, colocar piedras | Visual lento | ⬜ |
+| 4 | Jardín zen: rastrillar arena, colocar piedras | Visual lento | ✅ |
 | 5 | Mandala simétrico (dibujar con espejo radial) | Visoespacial | ⬜ |
 | 6 | Colorear por zonas (relleno con un toque) | Visoespacial | ⬜ |
 | 7 | 5-4-3-2-1 grounding guiado con la cámara o por pasos | Atención plena | ⬜ |
@@ -43,3 +43,6 @@ y se añade con un `<script>` en `www/index.html`. Recibe `util` con: `lienzo()`
 | 14 | Lámpara de lava / fluido que se mueve con el inclinómetro | Contemplativo | ⬜ |
 | 15 | Fidget: interruptores, ruedas, deslizadores con clic háptico | Táctil | ⬜ |
 | 16 | Estanque: ondas en el agua y peces que se acercan si tocas lento | Visual | ⬜ |
+| 17 | Gota líquida: bola en plato a su medida; el corte la divide y se cierra, marmoleado de colores | Táctil / visual | ✅ |
+| 18 | Liquid Ether: fluido de luz (Navier-Stokes en GPU), paletas del portafolio | Visual / contemplativo | ✅ |
+| 19 | Unir puntos: 10 figuras (estrella, corazón, luna, flor…), progreso guardado | Visoespacial | ✅ |

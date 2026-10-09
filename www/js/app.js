@@ -42,10 +42,11 @@ const Remanso = (() => {
     const limpiezas = [];
     return {
       // Canvas a pantalla completa con densidad de píxeles correcta.
-      lienzo() {
+      // lienzo('webgl') deja el canvas sin contexto 2D para que la mecánica pida WebGL.
+      lienzo(tipo = '2d') {
         const cv = document.createElement('canvas');
         escenario.appendChild(cv);
-        const g = cv.getContext('2d');
+        const g = tipo === '2d' ? cv.getContext('2d') : null;
         const L = { cv, g, w: 0, h: 0, dpr: 1 };
         const ajustar = () => {
           L.dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -53,7 +54,7 @@ const Remanso = (() => {
           L.h = escenario.clientHeight;
           cv.width = Math.round(L.w * L.dpr);
           cv.height = Math.round(L.h * L.dpr);
-          g.setTransform(L.dpr, 0, 0, L.dpr, 0, 0);
+          if (g) g.setTransform(L.dpr, 0, 0, L.dpr, 0, 0);
           if (L.alAjustar) L.alAjustar();
         };
         ajustar();

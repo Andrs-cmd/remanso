@@ -113,6 +113,33 @@ const FX = (() => {
     };
   }
 
+  // Roce continuo (arena, agua): ruido filtrado en bucle; nivel(0..1) lo abre o lo calla.
+  function roce({ frec = 1800, q = 0.7, vol = 0.22 } = {}) {
+    const c = audio(); if (!c) return { nivel() {}, parar() {} };
+    const buf = c.createBuffer(1, c.sampleRate * 2, c.sampleRate);
+    const d = buf.getChannelData(0);
+    for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+    const src = c.createBufferSource();
+    src.buffer = buf;
+    src.loop = true;
+    const f = c.createBiquadFilter();
+    f.type = 'bandpass';
+    f.frequency.value = frec;
+    f.Q.value = q;
+    const g = c.createGain();
+    g.gain.value = 0;
+    src.connect(f).connect(g).connect(maestro);
+    src.start();
+    return {
+      nivel(x) {
+        const t = c.currentTime;
+        g.gain.setTargetAtTime(Math.min(x, 1) * vol, t, 0.06);
+        f.frequency.setTargetAtTime(frec * (0.7 + Math.min(x, 1) * 0.6), t, 0.1);
+      },
+      parar() { g.gain.setTargetAtTime(0, c.currentTime, 0.1); src.stop(c.currentTime + 0.5); },
+    };
+  }
+
   // Háptica: plugin nativo de Capacitor si existe, si no navigator.vibrate.
   function haptico() {
     const P = window.Capacitor && window.Capacitor.Plugins;
@@ -135,5 +162,5 @@ const FX = (() => {
     if (navigator.vibrate) navigator.vibrate(ms);
   }
 
-  return { ajustes, audio, tono, pop, colchon, notaPentatonica, vibrar, vibrarPatron };
+  return { ajustes, audio, tono, pop, colchon, roce, notaPentatonica, vibrar, vibrarPatron };
 })();
