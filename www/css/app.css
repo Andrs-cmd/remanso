@@ -1,0 +1,184 @@
+:root {
+  --fondo: #0a1620;
+  --fondo-2: #0f2230;
+  --tinta: #e6f0f2;
+  --tinta-suave: #8fa9b3;
+  --acento: #7fd3c4;
+  --borde: rgba(255, 255, 255, 0.08);
+  --radio: 22px;
+  --seguro-arriba: env(safe-area-inset-top, 0px);
+  --seguro-abajo: env(safe-area-inset-bottom, 0px);
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--fondo);
+  color: var(--tinta);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  overscroll-behavior: none;
+}
+
+button { font: inherit; color: inherit; border: 0; background: none; cursor: pointer; }
+
+.pantalla {
+  position: fixed;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+.pantalla.activa { opacity: 1; pointer-events: auto; }
+
+/* ---------- Inicio ---------- */
+#inicio {
+  display: flex;
+  flex-direction: column;
+  padding: calc(20px + var(--seguro-arriba)) 20px calc(16px + var(--seguro-abajo));
+  background:
+    radial-gradient(120% 60% at 80% -10%, rgba(127, 211, 196, 0.16), transparent 60%),
+    radial-gradient(90% 50% at 0% 110%, rgba(120, 140, 230, 0.14), transparent 60%),
+    var(--fondo);
+  overflow-y: auto;
+}
+
+.cabecera { display: flex; justify-content: space-between; align-items: flex-start; }
+.saludo { margin: 0; color: var(--tinta-suave); font-size: 15px; }
+h1 { margin: 2px 0 0; font-size: 34px; font-weight: 600; letter-spacing: -0.5px; }
+
+.btn-ayuda {
+  width: 44px; height: 44px; border-radius: 50%;
+  border: 1px solid var(--borde);
+  font-size: 20px; color: #f2a7b8;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.checkin {
+  margin: 22px 0 18px;
+  padding: 16px 18px;
+  border-radius: var(--radio);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid var(--borde);
+}
+.checkin-pregunta { margin: 0 0 12px; font-size: 16px; }
+.checkin-nota { margin: 10px 0 0; font-size: 13px; color: var(--tinta-suave); min-height: 1em; }
+
+.escala { display: flex; justify-content: space-between; gap: 8px; }
+.escala button {
+  flex: 1; aspect-ratio: 1; max-width: 52px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+.escala button.sel { border-color: var(--tinta); transform: scale(1.12); }
+
+.rejilla { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+.tarjeta {
+  position: relative;
+  min-height: 150px;
+  padding: 16px;
+  border-radius: var(--radio);
+  text-align: left;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  overflow: hidden;
+  border: 1px solid var(--borde);
+  transition: transform 0.2s ease;
+}
+.tarjeta:active { transform: scale(0.97); }
+.tarjeta .icono {
+  position: absolute; top: 14px; left: 16px;
+  font-size: 30px; line-height: 1;
+}
+.tarjeta .nombre { font-size: 17px; font-weight: 600; }
+.tarjeta .desc { font-size: 12.5px; color: rgba(230, 240, 242, 0.75); margin-top: 3px; line-height: 1.35; }
+.tarjeta.ancha { grid-column: span 2; min-height: 120px; }
+
+.pie {
+  margin-top: auto;
+  padding-top: 20px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.calma { display: flex; align-items: baseline; gap: 6px; }
+.calma-num { font-size: 26px; font-weight: 600; color: var(--acento); }
+.calma-txt { font-size: 13px; color: var(--tinta-suave); }
+.ajustes { display: flex; gap: 6px; }
+.chip {
+  padding: 7px 12px; border-radius: 999px; font-size: 13px;
+  border: 1px solid var(--borde); color: var(--tinta-suave);
+}
+.chip.on { color: var(--fondo); background: var(--acento); border-color: var(--acento); }
+
+/* ---------- Sesión ---------- */
+#sesion { background: #050c12; }
+#escenario { position: absolute; inset: 0; touch-action: none; }
+#escenario canvas { display: block; width: 100%; height: 100%; }
+
+.btn-volver {
+  position: absolute;
+  top: calc(12px + var(--seguro-arriba)); left: 12px;
+  width: 44px; height: 44px; border-radius: 50%;
+  font-size: 30px; line-height: 40px;
+  color: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.05);
+  z-index: 5;
+}
+.sesion-titulo {
+  position: absolute;
+  top: calc(22px + var(--seguro-arriba)); left: 0; right: 0;
+  text-align: center; font-size: 14px; letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.35);
+  pointer-events: none; z-index: 4;
+  transition: opacity 1.5s ease;
+}
+
+/* Controles que las mecánicas pueden poner abajo */
+.controles {
+  position: absolute; left: 0; right: 0;
+  bottom: calc(18px + var(--seguro-abajo));
+  display: flex; justify-content: center; flex-wrap: wrap; gap: 8px;
+  padding: 0 16px; z-index: 4;
+}
+.controles .chip { background: rgba(0, 0, 0, 0.25); backdrop-filter: blur(6px); }
+.controles .chip.on { color: #06121a; background: var(--acento); }
+
+.rotulo {
+  position: absolute; left: 0; right: 0; text-align: center;
+  pointer-events: none; z-index: 3;
+  color: rgba(255, 255, 255, 0.85);
+  transition: opacity 0.8s ease;
+}
+
+/* ---------- Modales ---------- */
+.modal {
+  position: fixed; inset: 0; z-index: 20;
+  display: flex; align-items: flex-end; justify-content: center;
+  background: rgba(3, 8, 12, 0.6);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.modal.abierto { opacity: 1; pointer-events: auto; }
+.tarjeta-modal {
+  width: 100%; max-width: 480px;
+  margin: 12px; margin-bottom: calc(12px + var(--seguro-abajo));
+  padding: 22px 20px 18px;
+  border-radius: 26px;
+  background: var(--fondo-2);
+  border: 1px solid var(--borde);
+  transform: translateY(30px);
+  transition: transform 0.4s ease;
+}
+.modal.abierto .tarjeta-modal { transform: none; }
+.tarjeta-modal h2 { margin: 0 0 8px; font-size: 22px; }
+.tarjeta-modal p { color: var(--tinta-suave); line-height: 1.5; font-size: 15px; }
+.lineas { padding-left: 18px; line-height: 1.9; }
+.btn-suave {
+  margin-top: 14px; width: 100%; padding: 14px;
+  border-radius: 16px; background: rgba(127, 211, 196, 0.16); color: var(--acento);
+  font-weight: 600;
+}

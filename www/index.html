@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0a1620">
+  <title>Remanso</title>
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <!-- Inicio -->
+  <main id="inicio" class="pantalla activa">
+    <header class="cabecera">
+      <div>
+        <p class="saludo" id="saludo">Hola</p>
+        <h1>Remanso</h1>
+      </div>
+      <button class="btn-ayuda" id="btnAyuda" aria-label="Ayuda inmediata">♡</button>
+    </header>
+
+    <section class="checkin" id="checkin">
+      <p class="checkin-pregunta">¿Cómo llegas ahora?</p>
+      <div class="escala" id="escalaInicio"></div>
+      <p class="checkin-nota" id="checkinNota">Toca un punto. Es opcional.</p>
+    </section>
+
+    <section class="rejilla" id="rejilla"></section>
+
+    <footer class="pie">
+      <div class="calma">
+        <span class="calma-num" id="minutosCalma">0</span>
+        <span class="calma-txt">minutos de calma</span>
+      </div>
+      <div class="ajustes">
+        <button class="chip" id="btnSonido">Sonido</button>
+        <button class="chip" id="btnVibracion">Vibración</button>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Sesión: aquí se monta cada mecánica -->
+  <section id="sesion" class="pantalla">
+    <div id="escenario"></div>
+    <button class="btn-volver" id="btnVolver" aria-label="Volver">‹</button>
+    <div class="sesion-titulo" id="sesionTitulo"></div>
+  </section>
+
+  <!-- Cierre de sesión -->
+  <div class="modal" id="modalCierre">
+    <div class="tarjeta-modal">
+      <p class="checkin-pregunta">¿Y ahora cómo estás?</p>
+      <div class="escala" id="escalaCierre"></div>
+      <p class="checkin-nota" id="cierreNota"></p>
+      <button class="btn-suave" id="btnCerrarModal">Listo</button>
+    </div>
+  </div>
+
+  <!-- Ayuda inmediata -->
+  <div class="modal" id="modalAyuda">
+    <div class="tarjeta-modal">
+      <h2>No estás solo</h2>
+      <p>Esta app ayuda a bajar la tensión del momento, pero no reemplaza a un profesional. Si sientes que no puedes con esto o piensas en hacerte daño, habla con alguien ahora:</p>
+      <ul class="lineas">
+        <li><strong>Línea 106</strong> — Bogotá, gratuita, 24 h</li>
+        <li><strong>192 opción 4</strong> — línea nacional de salud mental (Colombia)</li>
+        <li><strong>123</strong> — emergencias</li>
+      </ul>
+      <button class="btn-suave" id="btnCerrarAyuda">Cerrar</button>
+    </div>
+  </div>
+
+  <script src="js/fx.js"></script>
+  <script src="js/app.js"></script>
+  <!-- Mecánicas: cada archivo se registra solo con Remanso.registrar({...}) -->
+  <script src="js/mecanicas/respirar.js"></script>
+  <script src="js/mecanicas/burbujas.js"></script>
+  <script src="js/mecanicas/estela.js"></script>
+  <script>Remanso.iniciar();</script>
+</body>
+</html>

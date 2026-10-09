@@ -1,0 +1,18 @@
+{
+  "name": "remanso",
+  "version": "0.1.0",
+  "description": "Remanso — app Android de mecánicas interactivas para bajar el estrés y la ansiedad.",
+  "private": true,
+  "scripts": {
+    "android": "cap sync android",
+    "apk": "cd android && gradlew.bat assembleDebug"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.1.2",
+    "@capacitor/core": "^6.1.2",
+    "@capacitor/haptics": "^6.0.1"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.1.2"
+  }
+}
